@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__JS__admin/html5.js"></script>
+<script type="text/javascript" src="__JS__admin/respond.min.js"></script>
+<script type="text/javascript" src="__JS__admin/PIE_IE678.js"></script>
+<![endif]-->
+<link type="text/css" rel="stylesheet" href="__CSS__admin/H-ui.css"/>
+<link type="text/css" rel="stylesheet" href="__CSS__admin/H-ui.admin.css"/>
+<!--[if IE 7]>
+<link href="font/font-awesome-ie7.min.css" rel="stylesheet" type="text/css" />
+<![endif]-->
+<title>添加用户</title>
+</head>
+<body>
+<div class="pd-20">
+  <div class="Huiform">
+    <form action="" method="post" onsubmit="return check_form()">
+      <table class="table table-bg">
+        <tbody>
+          <tr>
+            <th class="text-r"><span class="c-red">*</span> 标题：</th>
+            <td><input type="text" style="width:300px" class="input-text" value="{$news.title}" placeholder="" id="title" name="title"></td>
+          </tr>
+         <tr>
+            <th class="text-r">内容：</th>
+            <td><textarea class="input-text" name="content" id="content" style="height:200px;width:400px;">{$news.content}</textarea></td>
+          </tr>
+		   <tr>
+            <th class="text-r"><span class="c-red">*</span> 发布人：</th>
+            <td><input type="text" style="width:300px" class="input-text" value="{$news.user}" placeholder="" id="user" name="user"></td>
+          </tr>
+          <tr>
+            <th class="text-r">下载文件：</th>
+            <td><input type="file" name="download" id="download" onchange="uploadImg('download')"/><span id="uploadFile">{$news.download}</span></td>
+			
+          </tr>
+          <input type="hidden" name="download_f" id="download_f" value="{$news.download}"/>
+		  <input type="hidden" name="id" id="id" value="{$id}"/>
+          <tr>
+            <th></th>
+            <td><button class="btn btn-success radius" type="submit"><i class="icon-ok"></i> 确定</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
+</div>
+<script type="text/javascript" src="__JS__jquery.js"></script>
+<script type="text/javascript" src="__JS__admin/Validform_v5.3.2_min.js"></script> 
+<script type="text/javascript" src="__JS__admin/H-ui.js"></script> 
+<script type="text/javascript" src="__JS__admin/H-ui.admin.js"></script> 
+<script type="text/javascript" src="__JS__ajaxfileupload.js"></script>
+<script type="text/javascript">
+$(".Huiform").Validform(); 
+</script>
+<script type="text/javascript">
+	function uploadImg(id){
+	
+		$.ajaxFileUpload
+            (
+                {
+                    url: '{:url("Index/Upload/uploadword")}', //用于文件上传的服务器端请求地址
+                    secureuri: false, //一般设置为false
+                    fileElementId: id, //文件上传空间的id属性  <input type="file" id="file" name="file" />
+                    dataType: 'text', //返回值类型 一般设置为json
+                    success: function (data)  //服务器成功响应处理函数
+                    {
+						data = JSON.parse(data);
+						data.img = data.img.replace(/\\/g, "/");
+                        if(data.type==1){
+							$('#uploadFile').html(data.img);
+							$('#download_f').val('__UPL__'+data.img);
+						}else{
+							layer.msg(data.info,{time:2000});
+						}
+                    }
+                }
+            )
+            return false;
+	
+	}
+	
+	
+	function check_form(){
+	
+	
+		var title = $('#title').val();
+		var content = $('#content').val();
+		var user = $('#user').val();
+		var download = $('#download_f').val();
+		var id = $('#id').val();
+		
+		$.post('{:url("News/edit_news")}',{title:title,content:content,user:user,download:download,id:id},function(data){
+			
+			data = JSON.parse(data);
+			if(data.type==1){
+				parent.location.reload();
+			}else{
+				layer.msg(data.msg);
+			}
+			
+		});
+		
+		return false;
+	
+	}
+</script>
+</body>
+</html>

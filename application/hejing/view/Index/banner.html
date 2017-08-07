@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__JS__admin/html5.js"></script>
+<script type="text/javascript" src="__JS__admin/respond.min.js"></script>
+<script type="text/javascript" src="__JS__admin/PIE_IE678.js"></script>
+<![endif]-->
+<link type="text/css" rel="stylesheet" href="__CSS__admin/H-ui.css"/>
+<link type="text/css" rel="stylesheet" href="__CSS__admin/H-ui.admin.css"/>
+<link type="text/css" rel="stylesheet" href="__CSS__font/font-awesome.min.css"/>
+<!--[if IE 7]>
+<link href="__CSS__font/font-awesome-ie7.min.css" rel="stylesheet" type="text/css" />
+<![endif]-->
+<title>黑名单列表</title>
+<style type="text/css">
+	#pageNav li{float:left;}
+</style>
+</head>
+<body>
+<div class="pd-20">
+   <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"> <a class="btn btn-primary radius" onClick="addbanner()" href="javascript:;"><i class="icon-plus"></i> 添加</a></span>  </div>	
+  <table class="table table-border table-bordered table-bg table-hover table-sort">
+    <thead>
+      <tr class="text-c">
+        <th width="80">banner</th>
+		<th width="80">url</th>
+        <th width="70">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+	{volist name="banner" id="vo"}
+      <tr class="text-c">
+        <td><img style="width:880px;height:175px;" src="{$vo.banner}" alt="" /></td>
+		<td>{$vo.url}</td>
+		<td class="f-14 article-manage">
+			<a style="text-decoration:none" class="ml-5"  href="javascript:edit_banner('{$vo.id}');" title="编辑"><i class="icon-edit"></i></a> 
+			<a style="text-decoration:none" class="ml-5"  href="javascript:del_banner('{$vo.id}');" title="删除"><i class="icon-trash"></i></a>
+		</td>
+      </tr>
+	{/volist} 
+    </tbody>
+  </table>
+  
+  <div id="pageNav" class="pageNav"></div>
+</div>
+<script type="text/javascript" src="__JS__admin/jquery.min.js"></script>
+<script type="text/javascript" src="__JS__layer/layer.js"></script> 
+<script type="text/javascript" src="__JS__admin/pagenav.cn.js"></script> 
+<script type="text/javascript" src="__JS__admin/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="__JS__admin/H-ui.js"></script> 
+<script type="text/javascript" src="__JS__admin/H-ui.admin.js"></script>
+<script type="text/javascript">
+	
+	function addbanner(){
+	
+		layer.open({
+			//skin: 'layui-layer-nobg',
+			type: 2,
+			title: false,
+			area: ['800px', '300px'],
+			shade: ['0.1','#fff'],
+			closeBtn: 1,
+			shadeClose: true,
+			content: '{:url("Index/add_banner")}'
+			
+		});
+		
+		
+	}
+	
+	
+	function del_banner(id){
+		if(confirm('删除后无法恢复！')){
+		
+			$.post('{:url("Index/del_banner")}',{id:id},function(data){
+		
+			data =  JSON.parse(data);
+			if(data.type==1){
+				 location.reload();
+			}else{
+				alert(data.msg);
+			}
+		
+		});
+		
+		}
+		
+	}
+	
+	
+	function edit_banner(id){
+	
+		layer.open({
+			//skin: 'layui-layer-nobg',
+			type: 2,
+			title: false,
+			area: ['800px', '300px'],
+			shade: ['0.1','#fff'],
+			closeBtn: 1,
+			shadeClose: true,
+			content: '{:url("Index/edit_banner")}?id='+id
+			
+		});
+	
+	
+	}
+	
+</script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+
+
+<html>
+
+<head>
+
+    <meta name="viewport" content="width=device-width" />
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <script src="__JS__jquery.js"></script>
+
+    <style type="text/css">
+
+        body
+
+        {
+
+            margin: 0;
+
+            padding: 0;
+
+            font-size: 14px;
+
+            font-family: 微软雅黑, 'Microsoft YaHei';
+
+            color: #454545;
+
+        }
+
+
+
+        .wrap
+
+        {
+
+            width: 90%;
+
+            margin: 16px auto;
+
+            overflow: auto;
+
+        }
+
+
+
+        .title
+
+        {
+
+            font-size: 24px;
+
+            font-weight: 500;
+
+            margin: 8px 0;
+
+            text-align: center;
+
+        }
+
+
+
+        .sendtime
+
+        {
+
+            
+
+            text-align: center;
+
+            font-size: 12px;
+
+            margin: 8px 0 12px;
+
+            color: #a2a2a2;
+
+        }
+
+
+
+        .content
+
+        {
+
+            line-height: 25px;
+
+            text-indent: 2em;
+
+        }
+
+
+
+            .content p
+
+            {
+
+                margin: 4px 0;
+
+            }
+
+
+
+        .red
+
+        {
+
+            color: #f30;
+
+        }
+
+        .pager {
+
+            margin-top: 10px;
+
+            font-size: 80%;
+
+        }
+
+		.menu {
+
+			padding: 2px 20px; 
+
+			line-height: 30px;
+
+			color: #202020;
+
+			background-color: #D8D8D8;
+
+		}
+
+		.menu a {color:#333}
+
+    </style>
+
+</head>
+
+<body>
+
+		  <div class="menu" >
+
+		  <a href='javascript:ref()'>返回>></a>
+
+		  </div>
+
+    <div class="wrap">
+
+
+
+
+
+            <div class="title">{$arr.title}</div>
+
+            <div class="sendtime">发布时间：{$arr.time|date="Y-m-d H:i:s",###}</div>
+
+            <div class="content">
+				{$arr.content}
+			</div> 
+			{if condition="$type eq 'kejian' OR $type eq 'forecast'"}
+			<div style="margin:0 auto;width:200px;margin-top:100px;"><button onclick="download('{$arr.download}')" style="width:200px;height:50px;">点击下载</button></div>
+			{/if}
+
+			
+
+
+    </div>
+
+   
+
+
+
+
+
+</body>
+<script type="text/javascript">
+function ref(){
+	location.href=document.referrer;
+}
+
+
+function download(url){
+
+	location.href=url;
+
+}	
+</script>
+
+
+</html>

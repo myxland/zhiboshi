@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link href="__CSS__newslist.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+	.box_bottom ul li span{
+				display: block;
+				float: left;
+				padding: 0.4em 0.9em;
+				margin: 0 15px 5px 0;
+				text-decoration: none;
+				color: #D3E4F1;
+				border: 1px solid #D3E4F1;
+				background: gray;
+			}
+</style>
+</head>
+<body>
+<div class="big_box">
+	<div class="box_top">
+		<table class="list">
+			<tbody>
+				<tr style=" background:#eee;">
+					<th class="title_l"><span>标题</span></th>
+					<th class="title_r"><span>发布时间</span></th>
+				</tr>
+				{volist name="kejian" id="vo"}
+				<tr>
+					<td class="t1">
+						<span>
+							<i><img src="__IMG__point.png"/></i>
+							<a href="{:url('Menu/details')}?type=kejian&id={$vo.id}">{$vo.title}</a>
+						</span>
+					</td>
+					<td class="t2">
+						<span>{$vo.time|date="Y-m-d H:i:s",###}</span>
+					</td>
+				</tr>
+				{/volist}				
+			</tbody>
+		</table>
+	</div>
+	<div class="box_bottom">
+		{$kejian->render()}
+	</div>
+</div>
+</body>
+</html>

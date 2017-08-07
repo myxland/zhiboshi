@@ -1,0 +1,286 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>名师团队</title>
+
+<link type="text/css" href="__CSS__pop.css?v=113" rel="stylesheet">
+
+<link type="text/css" href="__CSS__dialog.css" rel="stylesheet">
+
+<script language="javascript" type="text/javascript" src="__JS__jquery.js"></script>
+
+<style>
+
+*{padding:0;margin:0;}
+
+#Y_teaZ6{border-right:none !important;}
+
+.TeaSC1{    
+
+background-color: #5FE6B9;
+
+padding: 5px 15px;
+
+border-radius: 5px;
+
+font-size: 15px;
+
+font-weight: bold;
+
+color: #FFF;
+
+}
+
+.TeaSC2{    
+
+background-color: #5588E2;
+
+padding: 5px 15px;
+
+border-radius: 5px;
+
+font-size: 15px;
+
+font-weight: bold;
+
+color: #FFF;
+
+}
+
+.TeaSC3{    
+
+background-color: #EC0430;
+
+padding: 5px 15px;
+
+border-radius: 5px;
+
+font-size: 15px;
+
+font-weight: bold;
+
+color: #FFF;
+
+}
+
+.TeaSC4{    
+
+background-color: #FF8C00;
+
+padding: 5px 15px;
+
+border-radius: 5px;
+
+font-size: 15px;
+
+font-weight: bold;
+
+color: #FFF;
+
+}
+
+.TeaSC5{    
+
+background-color: sienna;
+
+padding: 5px 15px;
+
+border-radius: 5px;
+
+font-size: 15px;
+
+font-weight: bold;
+
+color: #FFF;
+
+}
+.TeaSC0{    
+
+background-color: sienna;
+
+padding: 5px 15px;
+
+border-radius: 5px;
+
+font-size: 15px;
+
+font-weight: bold;
+
+color: #FFF;
+
+}
+
+</style>
+
+<script>
+
+function iTeacher_ClickHanlder()
+
+{
+
+	$('.experts_btns li').mouseover(function(){
+
+		$('.experts_btns li').removeClass('experts_btns_current');
+
+		$(this).addClass('experts_btns_current');
+
+		$('#experts > ul > div').css({display:'none'});
+
+		$('#'+$(this).attr('t')).css({display:'block'});
+
+	});
+
+}
+
+$(function(){
+
+iTeacher_ClickHanlder();
+
+});
+
+
+
+
+
+var Sjqq = '2880267478*3004905672*2880267456*2880267469*2880267455*2880267480';
+
+
+
+//随即QQ
+
+function Kfstr(e)
+
+{
+
+var strs = Sjqq.split("*");
+
+var luanxiitme = KffnLuanXu(strs);
+
+$("#"+e.id+"")[0].href='tencent://message/?Uin='+luanxiitme[0]+'&Site=www.qq.com&Menu=yes';
+
+
+
+}
+
+//乱序
+
+function KffnLuanXu(arr) {
+
+var num = arr.length;
+
+for (var i = 0; i < num; i++) {
+
+	var iRand = parseInt(num * Math.random());
+
+	var temp = arr[i];
+
+	arr[i] = arr[iRand];
+
+	arr[iRand] = temp;
+
+}
+
+return arr;
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+<div id="dialog" style="display: block; width: 857px; height:520px;top: 5px;">
+
+	<div class="dialog-content" style="background: #FFF;">
+
+	<div id="experts" style="height:480px;">	
+
+		<ul class="experts_btns" style="width:100%;">
+
+		
+		{volist name="jiangshi" id="vo" key="k"}
+			<li t="Y_tea{$k}" id="Y_teaZ{$k}" {eq name="k" value="1"}class="experts_btns_current"{/eq} style="width: 135px;float:left;">{$vo.name}</br>{$vo.flag}</li>
+		{/volist}
+		
+
+		
+
+		</ul>
+
+		<ul class="experts_detail">
+
+		
+		{volist name="jiangshi" id="vo" key="k"}
+			<div id="Y_tea{$k}" class="li_teacher">
+
+			<li class="li_appear">
+
+				<dl>
+
+					<dt><img src="__IMG__js1.png"/><a href="javascript:void(0)" id="QQtea1" class="asdasd" onclick="KffnLuanXu()">立即咨询</a></dt>
+
+					<dd>
+
+						<p style="text-align: left;"><font style="color: RED;font-size: 24px;font-weight: bold;">{$vo.name}</font>&nbsp;<font style='color: RED;font-size: 18px;font-weight: bold;'>[{$vo.style}]</font></p>
+
+						<p style="text-align: left;"><font style="color: #ABABAB;">操作风格：</font>{$vo.style}</p>
+
+						<p style="text-align: left;"><font style="color: #ABABAB;">投资历史：</font>{$vo.history}</p>
+
+						<p style="text-align: left;margin: 5px 0px;"><font style="color: #ABABAB;">擅长指标：</font>
+						
+						<input type="hidden" value="{$vo.index}" class="index{$k} index"/>
+						
+						
+
+						</p>
+
+						<p style="text-align: left;"><font style="color: #ABABAB;">交易风格：</font>{$vo.recommend}</p>
+
+					</dd>
+
+				</dl>
+
+			</li>
+
+			</div>
+		{/volist}
+		
+
+			
+
+		
+		
+
+		</ul>
+
+	</div></div>
+
+</div>
+
+</body>
+<script type="text/javascript">
+	var service = '{$service["content"]}';
+	$('.index').each(function(e,v){
+	
+		var index = $(v).val();
+		var arr = index.split(',');
+		var _html = '';
+		var j = 1;
+		e +=j;
+		for(var i=0;i<arr.length;i++){
+			j += i;
+			_html +="<span class='TeaSC"+i+"'>"+arr[i]+"</span>&nbsp;";
+		}
+		$('.index'+e).after(_html);
+	});
+</script>
+<script type="text/javascript" src="__JS__random.js"></script>
+</html>
+

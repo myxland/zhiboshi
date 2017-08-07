@@ -1,0 +1,42 @@
+
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote,dl, dt, dd, ul, ol, li,pre,fieldset, lengend, button, input, textarea,th, td {margin: 0;padding: 0; font-weight: normal;}
+ul, ol { list-style: none; }
+a { text-decoration: none; }
+a,input{ outline: none; }
+a:hover { text-decoration: none; }
+table {border-collapse: collapse; border-spacing: 0;}
+address, cite, dfn, em, var { font-style: normal; }/*h5里面的一些元素*/   
+img{ border:none;}
+q:before, q:after { content: ''; }/*h5里面的一些元素，用得较少可不加*/
+button, input, select, textarea {font-size: 100%; /* 使得表单元素在 ie 下能继承字体大小 */}
+/*body,button, input, select, textarea {font: 12px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;}*/
+*{font-family: "microsoft yahei"; }
+hr {border: none;height: 1px;}
+html{ overflow-y: scroll; }
+.big_box{padding: 10px 0;}
+.box_top{width:100%; overflow: hidden;height:auto;}
+.list{border-collapse: collapse; table-layout: fixed;width: 100%;}
+.list tr{ border-bottom: 1px dashed #ccc; }
+.list tr th{font-size: 14px;text-align: left;}
+.list tr th.title_l{width:80%; color: #333; padding: 5px 0; }
+.list tr th.title_l span{padding-left: 8px;}
+.list tr th.title_r{width:18%;}
+.list tr th.title_r span{width:18%; padding-left: 10px;}
+.list tr td{padding:5px;}
+.list tr td.t1 i{position: relative; top:5px;margin-right: 10px;}
+.list tr td.t1 a{color: #666; text-decoration: none; font-size: 12px;}
+.list tr td.t2{font-size: 12px; color: #999;}
+.list tr td.t2 span{font-size: 12px; color: #999;}
+.box_bottom{margin-top: 10px;font-size: 80%;}
+.box_bottom a{display: block; float: left;padding:0.4em 0.9em; margin:0 15px 5px 0; text-decoration: none; color:#D3E4F1; border:1px solid #D3E4F1; background: #0853b0;}
+.box_bottom a.next{ color: #666; border:1px solid #D3E4F1; background: #ccc;}
+/*详情页*/
+.xq_box{width:100%;}
+.top_t{padding: 2px 20px; background: #D8D8D8; color: #202020; line-height: 30px;}
+.top_t a{color: #333;font-size: 14px; text-decoration: underline;}
+.xq_main{padding: 30px 60px;}
+.xq_title h2{margin: 8px 0; text-align:center;font-weight: 500;font-size: 24px; color: #454545; }
+.xq_title span{display:block;text-align:center;margin: 8px 0 12px;font-size: 12px; color: #a2a2a2;}
+.xq_main p{margin: 4px 0; line-height: 30px; text-indent: 2em;color: #454545;}
+.xq_main p strong{ font-weight: bold;font-size: 18px; }
+.shengming{margin: 4px 0; color: rgb(69,69,69); font-size: 14px; line-height: 25px; text-indent: 28px;white-space: normal;padding: 30px 60px;}

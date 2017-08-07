@@ -1,0 +1,389 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8">
+
+<title>喊单提醒</title>
+
+<link href="__CSS__apps.css" rel="stylesheet" type="text/css" />
+
+<link href="__JS__layui/css/layui.css" rel="stylesheet" type="text/css" /> 
+
+<script type="text/javascript" src="__JS__jquery.js"></script>
+
+<script type="text/javascript" src="__JS__layui/layui.js"></script>
+
+</head>
+
+<style type="text/css">
+
+/* CSS Document */
+
+body {
+
+ font: normal 11px auto "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+
+ color: #4f6b72;
+
+}
+
+a {
+
+ color: #c75f3e;
+
+}
+
+table {
+
+ width: 100%;
+
+ padding: 0;
+
+ margin: 0;
+
+}
+
+caption {
+
+ padding: 0 0 5px 0;
+
+ width: 700px; 
+
+ font: italic 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+
+ text-align: right;
+
+}
+
+th {
+
+ font: bold 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+
+ color: #4f6b72;
+
+ border-right: 1px solid #C1DAD7;
+
+ border-bottom: 1px solid #C1DAD7;
+
+ border-top: 1px solid #C1DAD7;
+
+ letter-spacing: 2px;
+
+ text-transform: uppercase;
+
+ text-align:center;
+
+ padding: 6px 6px 6px 12px;
+
+ background: #CAE8EA ;
+
+}
+
+th.nobg {
+
+ border-top: 0;
+
+ border-left: 0;
+
+ border-right: 1px solid #C1DAD7;
+
+ background: none;
+
+}
+
+td {
+
+ border-right: 1px solid #C1DAD7;
+
+ border-bottom: 1px solid #C1DAD7;
+
+ font-size:11px;
+
+ padding: 6px 6px 6px 12px;
+
+ color: #4f6b72;
+
+}
+
+
+
+td.alt {
+
+ background: #F5FAFA;
+
+ color: #797268;
+
+}
+
+th.spec {
+
+ border-left: 1px solid #C1DAD7;
+
+ border-top: 0;
+
+ background: #fff ;
+
+ font: bold 10px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+
+}
+
+th.specalt {
+
+ border-left: 1px solid #C1DAD7;
+
+ border-top: 0;
+
+ background: #f5fafa ;
+
+ font: bold 10px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+
+ color: #797268;
+
+}
+
+tr{ background: #fff }
+
+tr:hover{background: #f5fafa}
+
+tr:hover td {background:none;}
+
+</style>
+
+
+
+
+<body>
+
+<script>
+
+Date.prototype.Format = function (fmt) { //author: meizz 
+
+    var o = {
+
+        "M+": this.getMonth() + 1, //月份 
+
+        "d+": this.getDate(), //日 
+
+        "h+": this.getHours(), //小时 
+
+        "m+": this.getMinutes(), //分 
+
+        "s+": this.getSeconds(), //秒 
+
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+
+        "S": this.getMilliseconds() //毫秒 
+
+    };
+
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+
+    for (var k in o)
+
+    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+
+    return fmt;
+
+}
+
+function ftime(time){
+
+	if(!time)return "";
+
+	return new Date(time*1000).Format("yyyy-MM-dd hh:mm"); ; 
+
+}
+
+function bt_hd_pc(id,lx,sp){
+
+	//$("#act_pc_from").find('input[type=text]').val("");
+
+	$("#pc_lx").val(lx);
+
+	$("#pc_sp").val(sp);
+
+	$("#pc_id").val(id);
+
+	$("#pc_no_id").text(id);
+
+	$("#pc_pcj").focus();
+
+	$("#act_pc_from").show();
+
+	$("#act_add_from").hide();
+
+}
+
+function bt_hd_del(id){
+
+	if(confirm('确定删除？')){location.href="?act=hd_del&id="+id;}
+
+}
+
+function bt_hd_add(){
+
+	//$("#act_add_from").find('input[type=text]').val(""); 
+
+	$("#cw").focus();
+
+	$("#act_add_from").show();
+
+	$("#act_pc_from").hide();
+
+}
+
+</script>
+
+<h2 style="display:inline-block;float:left;line-height:50px;margin-left:40px;">平仓时间：</h2>
+<div style="margin-left:20px;width:100px;float:left;margin-top:7px;">
+<input class="layui-input" onclick="layui.laydate({elem: this, festival: true})" placeholder="开始时间" id="begin">
+</div>
+<div style="margin-left:20px;width:100px;float:left;margin-top:7px;">
+<input class="layui-input" onclick="layui.laydate({elem: this, festival: true})" placeholder="结束时间" id="end">
+</div>
+<h2 style="display:inline-block;line-height:50px;margin-left:20px;">商品：</h2>
+<select name="shangpin" id="shangpin" style="margin-top:15px;height:30px;">
+{volist name="goods" id="vo"}
+	<option value="{$vo.id}">{$vo.goods_name}</option>
+{/volist}	
+</select>
+
+<h2 style="display:inline-block;line-height:50px;margin-left:20px;">老师：</h2>
+<select name="" id="teacher" style="margin-top:15px;">
+{volist name="teacher" id="vo"}
+	<option value="{$vo.id}">{$vo.name}</option>
+{/volist}	
+</select>
+<button style="margin-left:20px;" onclick="search()">搜索</button>
+<table width="100%" cellspacing="0" id="mytable">
+
+
+
+      <tr  >
+
+        <th  align="center" bgcolor="#FFFFFF">平仓时间</th>
+
+        <th  align="center" bgcolor="#FFFFFF">类型</th>
+
+        <th  align="center" bgcolor="#FFFFFF">仓位</th>
+
+        <th  align="center" bgcolor="#FFFFFF">商品</th>
+
+        <th align="center" bgcolor="#FFFFFF">开仓价</th>
+
+        <th align="center" bgcolor="#FFFFFF">止损价</th>
+
+        <th align="center" bgcolor="#FFFFFF">止盈价</th>
+
+		 <th align="center" bgcolor="#FFFFFF">平仓价</th>
+		
+        <th align="center" bgcolor="#FFFFFF">分析师</th>
+		
+		<th align="center" bgcolor="#FFFFFF">操作</th>
+
+  </tr>
+
+      
+
+
+
+
+{volist name="jiancang" id="vo"}
+    <tr>
+
+      <td align="center" bgcolor="#FFFFFF"><script>document.write(ftime({$vo.time})); </script></td>
+
+      <td align="center" bgcolor="#FFFFFF">{$vo.jianyi}</td>
+
+      <td align="center" bgcolor="#FFFFFF">{$vo.cangwei}</td>
+
+      <td align="center" bgcolor="#FFFFFF">{$vo.goods_name}</td>
+
+      <td align="center" bgcolor="#FFFFFF">{$vo.cangjia}</td>
+
+      <td align="center" bgcolor="#FFFFFF">{$vo.sunjia}</td>
+
+      <td align="center" bgcolor="#FFFFFF">{$vo.yingjia}</td>
+		
+	  <td align="center" bgcolor="#FFFFFF">{$vo.pingcang}</td>
+		
+      <td align="center" bgcolor="#FFFFFF">{$vo.name}</td>
+
+	  <td align="center" bgcolor="#FFFFFF"><a href="{:url('Menu/edit_jiancang')}?id={$vo.jiancang_id}">编辑</a>&nbsp;&nbsp;<a href="javascript:del('{$vo.jiancang_id}')">删除</a></td>
+    </tr>
+{/volist}
+
+
+
+</table>
+{$jiancang->render()}
+<style type="text/css">
+	.pagination{margin-top:20px;}
+	.pagination li{float:left;margin-left:5px;}
+	.pagination span{font-size:20px;}
+	.pagination a{font-size:20px;}
+</style>
+<script type="text/javascript">
+	
+layui.use('laydate', function(){
+  var laydate = layui.laydate;
+  
+  var start = {
+    min: laydate.now()
+    ,max: '2099-06-16 23:59:59'
+    ,istoday: false
+    ,choose: function(datas){
+      end.min = datas; //开始日选好后，重置结束日的最小日期
+      end.start = datas //将结束日的初始值设定为开始日
+    }
+  };
+}); 
+
+
+
+function search(){
+
+var begin = $('#begin').val();
+var end   = $('#end').val();
+var shangpin = $('#shangpin').val();
+var teacher  = $('#teacher').val();
+
+if(begin!='')
+{
+begin = begin.replace(/-/g,'/'); 
+begin = new Date(begin).getTime();
+}
+
+if(end!='')
+{
+end   = end.replace(/-/g,'/'); 
+end   = new Date(end).getTime();
+}
+
+location.href="{:url('Menu/pingcang')}?"+'begin='+begin+'&end='+end+'&goods='+shangpin+'&teacher='+teacher;
+}
+
+function del(id){
+if(confirm('删除后将不可恢复！')){
+$.post('{:url("Menu/del_jiancang")}',{id:id},function(data){
+			data = JSON.parse(data);
+			if(data.type!=1){
+				layer.msg(data.msg);
+			}else{
+				location.reload();
+			}
+});
+}
+}
+</script>
+
+
+</body>
+
+</html>
+
+
+

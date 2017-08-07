@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>{$room.room_title}</title>
+	<meta name="keywords" content="{$room.room_keyword}"/>
+	<meta name="renderer" content="webkit"> 
+	<link rel="stylesheet" href="__CSS__common.css" />
+	<link rel="stylesheet" href="__CSS__index.css" />
+	<link rel="stylesheet" href="__CSS__face.css" />
+	<link rel="stylesheet" href="__CSS__swiper.css" />
+	<link rel="stylesheet" href="__JS__layui/css/layui.css" />
+	
+	<script type="text/javascript" src="__JS__jquery.js"></script>
+	<script type="text/javascript" src="__JS__notify.js"></script>
+	<script type="text/javascript" src="__JS__layer/layer.js"></script>
+	<script type="text/javascript" src="__JS__layui/layui.js"></script>
+	<style>
+    .swiper-container {
+        width: 100%;
+        height: 100%;
+    }
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+    }
+    </style>
+</head>
+<body style="background:url(__IMG__b3.jpg)">
+	<div class="header">
+		<div class="header_left">
+			<img src="__IMG__logo.png" alt="" />
+			{if condition="($user.level>6)"}
+			<span id="renshu" class="top1 top3">在线人数:0</span>
+			<a href="javascript:toLoad('robot')" class="top1 top2">机器人</a>
+			<a  attr="{:url('Menu/add_jiancang')}" href="javascript:void(0)" class="top1 top4 jumpc">建仓</a>
+			<a  href="" class="top1 top4">客服</a>
+			{/if}
+		</div>
+		<div class="header_right">
+		{empty name="user"}
+			<ul class="entrance">
+				<li ><a href="javascript:toLoad('login')" >登录</a></li>
+				<li ><a href="javascript:toLoad('register')" >注册</a></li>
+			</ul>
+		{else /}
+			<ul class="user entrance">
+				<li ><img src="{$user.icon}" style="display:inline-block;float:left;margin-top:10px;width:30px;height:30px;" /><a href="javascript:void(0);">{$user.name}</a></li>
+				<li ><a href="{:url('Index/loginOut')}" >退出</a></li>
+			</ul>
+		{/empty}		
+		</div>
+	</div>
+	<div class="content">
+		<div class="con_left">
+			<iframe height="78" width="100%" allowtransparency="true" marginwidth="0" marginheight="0" frameborder="0" scrolling="no" src="http://demo.nuoyunlive.com/apps/vote.php?rid=6001"></iframe>
+			<ul class="menu">
+				<li onclick="jump('xwzx')" style="background:url('__IMG__ceshi.png') no-repeat 20px 5px">
+				<span>新闻资讯</span>
+				</li>
+				<li onclick="jump('jsfc')" style="background:url('__IMG__ceshi1.png') no-repeat 20px 5px">
+				<span>讲师风采</span>
+				</li>
+				<li onclick="jump('pctx')" style="background:url('__IMG__ceshi2.png') no-repeat 20px 5px">
+				<span>平仓提醒</span>
+				</li>
+				<li onclick="jump('jctx')" style="background:url('__IMG__ceshi3.png') no-repeat 20px 5px">
+				<span>建仓提醒</span>
+				</li>
+				<li onclick="jump('xxkj')" style="background:url('__IMG__ceshi4.png') no-repeat 20px 5px">
+				<span>学习课件</span>
+				</li>
+				<li onclick="jump('ycbj')" style="background:url('__IMG__ceshi5.png') no-repeat 20px 5px">
+				<span>预测布局</span>
+				</li>
+				<li onclick="jump('cjrl')" style="background:url('__IMG__ceshi.png') no-repeat 20px 5px">
+				<span>财经日历</span>
+				</li>
+				<li onclick="jump('kcb')" style="background:url('__IMG__ceshi.png') no-repeat 20px 5px">
+				<span>课程表</span>
+				</li>
+				<li onclick="jump('rjxz')" style="background:url('__IMG__ceshi.png') no-repeat 20px 5px">
+				<span>软件下载</span>
+				</li>
+			</ul>
+			<div class="userlist-wrap">
+				<span class="userlist-menu" style="opacity:0.4;">在线会员</span>
+				<span class="userlist-menu">我的客服</span>
+				<ul style="display:none;" class="userlist">
+				
+				</ul>
+				<div class="kefu">
+					<div class="kefu-list">
+						<img src="__IMG__kefu.gif" alt="" width="30px;" height="30px;"/>
+						<span>系统咨询客服</span>
+					</div>
+					<div class="kefubtn">
+						<a href="javascript:KffnLuanXu()">
+							在线咨询
+						</a>
+					</div>
+					<div class="kefujieshao">
+						<i>|</i><span>助理介绍</span>
+					</div>
+					<div class="kefujieshao1">
+						<p>您好！我是系统咨询客服，欢迎来到我的直播系统，如需更多了解诺云财经直播系统 请加我qq 514499610</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="con_middle">
+			<div class="title_bar">
+				<span style="display:inline-block;float:left;">当前讲师:系统管理员</span>
+				<div style="float:right;width:300px;height:33px;">
+					<span>您还可以观看：</span>
+					<div style="display:inline-block;background:url('__IMG__daojishi.png') 0px 5px no-repeat;width:190px;">
+						<span id="day" style="margin-left:6px;" class="djs-day">00</span>
+						<span id="hour" style="margin-left:12px;" class="djs-day">00</span>
+						<span id="minute" class="djs-day">00</span>
+						<span id="second" style="letter-spacing: 8px;" class="djs-day">00</span>
+					</div>
+				</div>
+			</div>
+			<div class="zhibo">
+				<div class="zhibo-wrap">
+					<div class="zhibo-title">
+						<span>您总共可以观看分钟的视频，剩余 0 分钟，</span><br /><br />
+						<span>享受进一步服务请与客服联系。</span>
+						<img src="__IMG__register.png" alt="" onclick="toLoad('register')"/>
+					</div>
+				</div>
+				<gs:video-live id="videoComponent" site="52jincha.gensee.com" ctx="webcast" ownerid="936d881fdc864741bd90774aface2c9a" uname="" authcode="" class="gs-sdk-widget"><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" id="_GS_FLASH_ID_videoComponent" width="100%" height="100%" codebase="https://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab#version=11.1.0.0">	<param name="movie" value="https://static.gensee.com/webcast/static/sdk/flash/GenseeEasyLive.swf?160426">	<param name="wmode" value="transparent">	<param name="quality" value="high">	<param name="bgcolor" value="#000000">	<param name="allowScriptAccess" value="always">	<param name="allowFullScreen" value="true">	<param name="flashvars" value="sc=0&amp;entry=http%3A%2F%2F52jincha.gensee.com%2Fwebcast&amp;code=936d881fdc864741bd90774aface2c9a__c5263472e3e14133a22d113e67857382&amp;lang=&amp;nickName=visitor_QMzS0G&amp;httpMode=false&amp;group=&amp;widgetid=videoComponent&amp;userdata=&amp;showCBar=&amp;backURI=&amp;ver=4.0&amp;publicChat=&amp;init=&amp;liveImprovedMode=false&amp;visible=true&amp;embedNetSettings=true&amp;batchRecChat=false&amp;fullscreen=false">	<embed src="https://static.gensee.com/webcast/static/sdk/flash/GenseeEasyLive.swf?160426" quality="high" bgcolor="#000000" wmode="transparent" width="100%" height="100%" name="_GS_FLASH_ID_videoComponent" align="middle" play="true" loop="false" allowscriptaccess="always" allowfullscreen="true" type="application/x-shockwave-flash" flashvars="sc=0&amp;entry=http%3A%2F%2F52jincha.gensee.com%2Fwebcast&amp;code=936d881fdc864741bd90774aface2c9a__c5263472e3e14133a22d113e67857382&amp;lang=&amp;nickName=visitor_QMzS0G&amp;httpMode=false&amp;group=&amp;widgetid=videoComponent&amp;userdata=&amp;showCBar=&amp;backURI=&amp;ver=4.0&amp;publicChat=&amp;init=&amp;liveImprovedMode=false&amp;visible=true&amp;embedNetSettings=true&amp;batchRecChat=false&amp;fullscreen=false" pluginspage="http://www.adobe.com/go/getflashplayer">	</object></gs:video-live>
+			</div>
+			<div class="banner">
+				 <div class="swiper-container">
+					<div class="swiper-wrapper">
+					{volist name="banner" id="vo"}
+						<div class="swiper-slide"><a href="{$vo.url}" target="__blank"><img src="{$vo.banner}" alt="" /></a></div>
+					{/volist}	
+					</div>
+					<!-- Add Pagination -->
+					<div class="swiper-pagination"></div>
+					<!-- Add Navigation -->
+					<div class="swiper-button-prev"></div>
+					<div class="swiper-button-next"></div>
+				</div>
+			</div>
+			
+		</div>
+		<div class="con_right">
+			<div class="chat_notice">
+				<span class="fl">公告：<img src="__IMG__laba.png" alt="" /></span>
+				<div style="width:300px;" class="fl">
+					<marquee scrollamount="5" id="msg_tip_show">
+						<span style="color:red">{$room['room_notice']}</span>						
+					</marquee>
+				</div>
+			</div>
+			<div class="chat">
+				<div class="chat_content" id="chat_info">
+				
+				</div>
+			</div>
+			<div class="face">
+				<div class="face_content">
+					<span style="color:red;font-size:16px;">管理提示</span>
+					<div class="tool_bar">
+						<a style="background:#a1ddf8;" class="tool_son" onclick="KffnLuanXu()">高级助理</a>
+						<a style="background:#6699cc;" class="tool_son" onclick="KffnLuanXu()">申请1对1</a>
+						<a style="background:#33cc99;" class="tool_son" onclick="KffnLuanXu()">转户开户</a>
+						<a style="background:#dc6464;" class="tool_son" onclick="KffnLuanXu()">升级权限</a>
+						<a style="background:#2c76c1;" class="tool_son" onclick="KffnLuanXu()">错单解套</a>
+					</div>
+					<div id="face" style="position: absolute; top: 50%; left: inherit; display: none;" toinput="#Msg"></div>
+					<div>
+						<a class="fac" href="javascript:showFacePanel(this,'#Msg');" style="background:url(__IMG__fc3.png) no-repeat 0 5px;"></a>
+						<a class="fac" href="javascript:void(0);" style="background:url(__IMG__pic3.png) no-repeat 0 5px;"></a>
+						<input value="aa" type="file" id="image" name="image" class="filefac" onchange="UploadFile('image')"/>
+						{if condition="($user.level>6)"}
+							<select style="margin-bottom:30px;" name="" id="robot">
+								<option  value="{$user.level}">{$user.name}</option>
+							{volist name="robot" id="vo"}
+								<option value="{$vo.level}">{$vo.nick_name}</option>
+							{/volist}	
+							</select>
+						{/if}
+					</div>
+				</div>	
+			</div>
+			<div class="send_msg">
+				<div class="send_msg_wrap">
+					<div contentEditable="true" id="msg_text"></div>
+					<button id="btn_sendmsg"></button>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</body>
+<script type="text/javascript">
+	//定义路径
+	var isLogin = '{:url("index/isLogin")}';
+	var login   = '{:url("login")}';
+	var imgLink = '__IMG__';
+	var robot = '{:url("Index/robot")}';
+	var message = '{:url("Message/addMessage")}';
+	var editMsg = '{:url("Message/editMessage")}';
+	var face = '{:url("Index/face")}';
+	var delMsg = '{:url("Message/delMessage")}';
+	var uploadImg='{:url("Upload/uploadimg")}';
+	var uploadUrl='__UPL__';
+	var service = '{$service["content"]}';
+	
+	
+	//记录用户信息
+	var cur_user = [];
+	cur_user['name'] = '{$user.name}';
+	
+	
+	
+
+
+//显示最近的聊天记录
+	var latelyChat = '{$msg}';
+	if(latelyChat=='[]'){
+		
+	}else{
+	
+		var chat = $('#chat_info').html();
+		latelyChat = JSON.parse(latelyChat);
+		for(var i =latelyChat.length-1; i>=0;i--){
+			if(latelyChat[i]['chatlevel']>6){
+				var sty = 'color:red';
+			}else{
+				var sty = '';
+			}
+			//latelyChat[i]['chatmessage'] = unescape(latelyChat[i]['chatmessage']);
+			if(latelyChat[i]['status']==0){
+				var chat_json = '{"uid":"'+latelyChat[i]['uid']+'","msg":"check","level":"'+latelyChat[i]['chatlevel']+'","name":"'+latelyChat[i]['chatname']+'","content":"'+latelyChat[i]['chatmessage']+'","chatid":"'+latelyChat[i]['id']+'","time":"'+latelyChat[i]['uid']+'"}';
+				var audit = '<a class="shenhe1" id="shenhe1" href="javascript:check_msg_yes('+latelyChat[i]['id']+')"></a><a class="shenhe2" id="shenhe2" href="javascript:check_msg_no('+latelyChat[i]['id']+')"></a>'+"<input id='input"+latelyChat[i]['id']+"' value='"+chat_json+"' type='hidden' />";
+			}else{
+				var audit = '';
+				var chat_json='';
+			}
+			
+			var icon = '<img src="'+imgLink+'user'+latelyChat[i]['chatlevel']+'.png" class="msg_group_ico" title="会员 -注册用户">';
+			var info = '<div id="'+latelyChat[i]['id']+'" class="msg notmine "><div class="msg_head">'+icon+'</div><div class="msg_content"><div><font class="u">'+latelyChat[i]['chatname']+'</font>&nbsp;&nbsp; <font class="date">'+latelyChat[i]['time']+'</font>'+audit+'</div><div class="layim_chatsay"><font style="font-size:13px;'+sty+'">'+unescape(latelyChat[i]['chatmessage'])+'</font></div></div></div>';
+			chat  += info;	
+			
+		}
+		
+		$('#chat_info').html(chat);
+		$('.chat').scrollTop( $('.chat').prop("scrollHeight"));
+}
+</script>
+<script type="text/javascript" src="__JS__jump.js"></script>
+<script type="text/javascript" src="__JS__websocket.js"></script>
+<script type="text/javascript" src="__JS__ajaxfileupload.js"></script>
+<script type="text/javascript" src="__JS__index.js"></script>
+<script type="text/javascript" src="__JS__random.js"></script>
+<script type="text/javascript" src="__JS__swiper.js"></script>
+<script type="text/javascript" src="__JS__kefu.js"></script>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        loop: true,
+        pagination: '.swiper-pagination',
+        paginationClickable: true,
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev'
+    });
+</script>
+<script type="text/javascript">
+	function jump(e){
+	switch(e){
+		case 'jsfc':
+			layer.open({
+			//skin: 'layui-layer-nobg',
+			type: 2,
+			title: false,
+			area: ['850px', '525px'],
+			shade: ['0.1','#fff'],
+			closeBtn: 1,
+			shadeClose: true,
+			content: '{:url("Menu/jiangshi")}'
+			
+		});
+			break;
+			
+		case 'jctx':
+			layer.open({
+			//skin: 'layui-layer-nobg',
+			type: 2,
+			title: false,
+			area: ['1000px', '600px'],
+			shade: ['0.1','#fff'],
+			closeBtn: 1,
+			shadeClose: true,
+			content: '{:url("Menu/jiancang")}'
+			
+		});
+			break;
+			
+		case 'cjrl':
+			layer.open({
+			//skin: 'layui-layer-nobg',
+			type: 2,
+			title: false,
+			area: ['1000px', '600px'],
+			shade: ['0.1','#fff'],
+			closeBtn: 1,
+			shadeClose: true,
+			content: 'https://www.jin10.com/example/jin10.com.html'
+			
+		});
+			break;	
+			
+			
+		case 'kcb':
+			layer.open({
+			//skin: 'layui-layer-nobg',
+			type: 2,
+			title: false,
+			area: ['666px', '383px'],
+			shade: ['0.1','#fff'],
+			closeBtn: 1,
+			shadeClose: true,
+			content: '{:url("Menu/course")}'
+			
+		});
+			break;		
+			
+		
+		case 'xwzx':
+			layer.open({
+			//skin: 'layui-layer-nobg',
+			type: 2,
+			title: false,
+			area: ['1000px', '600px'],
+			shade: ['0.1','#fff'],
+			closeBtn: 1,
+			shadeClose: true,
+			content: '{:url("Menu/newslist")}'
+			
+		});
+			break;		
+
+
+		case 'rjxz':
+			layer.open({
+			//skin: 'layui-layer-nobg',
+			type: 2,
+			title: false,
+			area: ['800px', '500px'],
+			shade: ['0.1','#fff'],
+			closeBtn: 1,
+			shadeClose: true,
+			content: 'http://vip.chengyicaijing.com/handle/rjxz.asp'
+			
+		});
+			break;	
+			
+			
+		case 'xxkj':
+			layer.open({
+			//skin: 'layui-layer-nobg',
+			type: 2,
+			title: false,
+			area: ['800px', '500px'],
+			shade: ['0.1','#fff'],
+			closeBtn: 1,
+			shadeClose: true,
+			content: '{:url("Menu/kejian")}'
+			
+		});
+			break;		
+			
+			
+			
+		case 'ycbj':
+			layer.open({
+			//skin: 'layui-layer-nobg',
+			type: 2,
+			title: false,
+			area: ['800px', '500px'],
+			shade: ['0.1','#fff'],
+			closeBtn: 1,
+			shadeClose: true,
+			content: '{:url("Menu/forecast")}'
+			
+		});
+			break;		
+			
+			
+			
+		case 'pctx':
+			layer.open({
+			//skin: 'layui-layer-nobg',
+			type: 2,
+			title: false,
+			area: ['1000px', '600px'],
+			shade: ['0.1','#fff'],
+			closeBtn: 1,
+			shadeClose: true,
+			content: '{:url("Menu/pingcang")}'
+			
+		});
+			break;	
+
+	}
+}
+
+
+function jiancang(){
+
+	layer.open({
+			//skin: 'layui-layer-nobg',
+			type: 2,
+			title: false,
+			area: ['1000px', '600px'],
+			shade: ['0.1','#fff'],
+			closeBtn: 1,
+			shadeClose: true,
+			content: '{:url("Menu/jiancang")}'
+			
+		});
+
+};
+
+
+function pingcang(){
+
+	layer.open({
+			//skin: 'layui-layer-nobg',
+			type: 2,
+			title: false,
+			area: ['1000px', '600px'],
+			shade: ['0.1','#fff'],
+			closeBtn: 1,
+			shadeClose: true,
+			content: '{:url("Menu/pingcang")}'
+			
+		});
+
+};
+
+
+$(function(){
+
+var restrict_10 = setInterval(function(){
+
+	
+
+
+},5000);
+
+
+var restrict_15 = setInterval(function(){
+
+	
+
+
+},5000);
+
+
+});
+</script>
+</html>

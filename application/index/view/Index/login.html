@@ -1,0 +1,257 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1, maximum-scale=1">
+<link href="__CSS__minilogin.css" rel="stylesheet" type="text/css"  />
+<script src="__JS__jquery.js"></script>
+<script src="__JS__/layer/layer.js"></script>
+<style type="text/css">
+	#web_qr_login{display:none;}
+	#qlogin{display:none;}
+</style>
+</head>
+
+<body>
+<div class="login">
+    
+    <div class="header">
+        <div class="switch" id="switch"><a class="switch_btn_focus" id="switch_qlogin" href="javascript:load('login');" tabindex="7">登&nbsp;录</a>
+			<a class="switch_btn" id="switch_login" href="javascript:load('register');" tabindex="8">注&nbsp;册</a><div class="switch_bottom" id="switch_bottom" style="position: absolute; width: 66px; left: 0px;"></div>
+        </div>
+    </div>    
+  
+    
+    <div class="web_qr_login" id="web_qr_login" style="{eq name='type' value='login'}display:block;{/eq} height: 285px;">    
+
+            <!--登录-->
+            <div class="web_login" id="web_login">
+               
+               
+               <div class="login-box">
+    
+            
+			<div class="login_form">
+				<form action="" method="post"  name="loginform"  id="login_form" class="loginForm" onsubmit="return validates()" >
+                <div class="uinArea" id="uinArea">
+                <span class="input-tips username" for="username"><i></i></span>
+                <div class="inputOuter" id="uArea">
+                    
+                    <input type="text" id="username" name="username" class="inputstyle" placeholder="手机号码"/>
+                </div>
+                </div>
+                <div class="pwdArea" id="pwdArea">
+               <span class="input-tips password" for="password"><i></i></span> 
+               <div class="inputOuter" id="pArea">
+                    
+                    <input type="password" id="password" name="password" class="inputstyle" placeholder="密码"/>
+                </div>
+                </div>
+               <div class="control-password clearfix">
+        <a  onclick="window.parent.openWin(2,false,'room/passwd_reset.php',390,400)"  target="_blank" title="去找回密码">忘记密码?</a>
+    </div>
+                <div  class="button-container"><input type="submit" value="立即登录"  class="button_blue button_login"/></div>
+                
+              </form>
+              <div class="ruc-third-way-login forgin-login">
+        
+    </div>              
+           </div>
+           
+            	</div>
+               
+            </div>
+            <!--登录end-->
+  </div>
+
+  <!--注册-->
+    <div class="qlogin" id="qlogin" style="{eq name='type' value='register'}display:block;{/eq}height: 435px; ">
+   
+    <div class="web_login"> 
+        <div class="login_form">
+        <form action="" method="post" id="regUser" >
+     
+        	<div class="uinArea" id="uinArea">
+                <span class="input-tips username" for="user"><i></i></span>
+                <div class="inputOuter2" id="uArea">
+                    
+                    <input type="text" id="u" name="u" class="inputstyle"   maxlength="16"  placeholder="用户名3-15位字符">
+                </div>
+                </div>
+                  <div class="regArea">
+               <span class="input-tips password" for="passwd"><i></i></span> 
+               <div class="inputOuter2">
+                    
+                    <input type="password" id="p" name="p" class="inputstyle" maxlength="16" placeholder="密码">
+                </div>
+                </div>
+             <div class="regArea" >
+               <span class="input-tips password" for="passwd2"><i></i></span> 
+               <div class="inputOuter2">
+                    
+                    <input type="password" id="p2" name="p2" class="inputstyle" maxlength="16" placeholder="确认密码">
+                </div>
+                </div>
+                
+               <div class="regArea" >
+               <span class="input-tips phone" for="phone"><i></i></span> 
+               <div class="inputOuter2">
+                    
+                    <input type="text" id="phone" name="phone" class="inputstyle" maxlength="11" placeholder="手机">
+                </div>
+                </div>
+                <div class="regArea" >
+               <span class="input-tips yzm" for="yzm"><i></i></span> 
+               <div class="inputOuter2">
+                 <input  type="button" onclick="get_yzm()" value="获取验证码" class="getcode text_input us_input getverify_sms " id="get_verification"> 
+                 <input type="text" id="yzm" name="yzm" class="inputstyle" maxlength="6" placeholder="手机验证码">
+                </div>
+                </div>
+              
+                  <div id="userCue" class="common-error-msg-container"></div>
+                    <div class="button-container">
+                        <input type="button" id="reg" onclick="verifyReg()" class="button_blue button_reg" value="免费注册"/>
+                    </div>
+             
+           </form>
+           </div>
+    
+    </div>
+   
+    </div>
+    <!--注册end-->
+    <div class="footer">
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+	//定义路径
+	var isLogin = '{:url("index/isLogin")}';
+	var login   = '{:url("login")}';
+	var imgLink = '__IMG__';
+</script>
+<script type="text/javascript" src="__JS__index.js"></script>
+<script type="text/javascript" src="__JS__websocket.js"></script>
+<script type="text/javascript" src="__JS__jquery.js"></script>
+<script type="text/javascript" src="__JS__layer/layer.js"></script>
+<script type="text/javascript">
+
+	if('{$type}'=='register'){
+		$('#switch_bottom').css('left','160px');
+	}
+	
+	//切换登录/注册窗口
+	function load(e){
+		if(e=='login'){
+			$('#web_qr_login').css('display','block');
+			$('#qlogin').css('display','none');
+			$('#switch_bottom').css('left','0px');
+		}else if(e=='register'){
+			$('#web_qr_login').css('display','none');
+			$('#qlogin').css('display','block');
+			$('#switch_bottom').css('left','160px');
+		}
+	}
+	
+	
+	//发送短信验证
+	function get_yzm(){
+		var mobile = $('#phone').val();
+		if(!/\d{11}/.test(mobile)){
+			layer.msg('请输入正确的手机号码',{time:1000});
+			return false;
+		}
+		
+		$.post('{:url("SendSms/sms")}',{mobile:mobile,type:'default'},function(data){
+			if(data==1){
+				$('#get_verification').attr('disabled',true);
+				var time = 60;
+				var fr = setInterval(function(){
+					time--;
+					$('#get_verification').val(time+'秒后获取');
+					if(time<=0){
+						$('#get_verification').attr('disabled',false);
+						$('#get_verification').val('免费获取验证码');
+						clearInterval(fr);
+					}
+				},1000);
+			}else{
+				layer.msg('发送失败,系统繁忙',{time:1000});
+			}
+		});
+	}
+	
+	
+	//登录表单验证
+	function validates(){
+		var uname = $('#username').val();
+		var pass  = $('#password').val();
+		var flag  = false;
+		
+		if(uname==null||uname==''){
+			layer.msg('用户名不能为空',{time:1000});
+			return false;
+		}else if(pass.length<6){
+			layer.msg('密码的长度最少6位数',{time:1000});
+			return false;
+		}else{
+			$.post('{:url("Index/verify_login")}',{name:uname,password:pass},function(data){
+				data = JSON.parse(data);
+				if(data.type!=1){
+					layer.msg(data.msg,{time:1000});
+				}else if(data.type==1){
+					var msg = '{"name":"'+data.name+'","id":"'+data.id+'","level":"'+data.level+'","msg" : "login","name":"'+data.name+'","icon":"'+data.icon+'","kefu":"'+data.kefu+'"}';
+					ws.send( msg );
+					parent.location.reload();
+				}
+			});
+		}
+		
+		if(flag==false){
+			return false;
+		}
+	}
+	
+	//注册表单验证
+	function verifyReg(){
+		var u = $('#u').val();
+		var p = $('#p').val();
+		var p2= $('#p2').val();
+		var phone = $('#phone').val();
+		var yzm = $('#yzm').val();
+		u = u.replace(/\s/g,"");//去除空格
+		if(u==''||u==null){
+			layer.msg('用户名不能为空',{time:1000});
+			return false;
+		}else if(/[~#^$@%&!*]/gi.test(u)){
+			layer.msg('用户名非法',{time:1000});
+			return false;
+		}else if(p.length<6){
+			layer.msg('密码的长度最少6位数',{time:1000});
+			return false;
+		}else if(p!=p2){
+			layer.msg('两次密码不一致',{time:1000});
+			return false;
+		}else if(!/\d{11}/.test(phone)){
+			layer.msg('请输入正确的手机号',{time:1000});
+			return false;
+		}else if(yzm.length<6){
+			layer.msg('验证码长度为6位数字',{time:1000});
+			return false;
+		}else{
+			$.post('{:url("Index/verify_register")}',{name:u,password:p,phone:phone,yzm:yzm},function(data){
+	
+				data = JSON.parse(data);
+				if(data.type==1){
+					var msg = '{"name":"'+data.name+'","id":"'+data.id+'","level":"'+data.level+'","msg" : "login","name":"'+data.name+'","icon":"'+data.icon+'","kefu":"'+data.kefu+'"}';
+					ws.send( msg );
+					parent.location.reload();
+				}else{
+					layer.msg(data.msg,{time:1000});
+				}
+			});
+		}
+	}
+</script>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+
+<meta charset="utf-8">
+
+
+<!--[if lt IE 9]>
+
+<script type="text/javascript" src="js/html5shiv.js"></script>
+
+<script type="text/javascript" src="js/respond.min.js"></script>
+
+<![endif]-->
+
+<link rel="stylesheet" type="text/css" href="__CSS__robot/H-ui.min.css" />
+
+<link rel="stylesheet" type="text/css" href="__CSS__robot/H-ui.admin.css" />
+
+<link rel="stylesheet" type="text/css" href="__CSS__robot/iconfont.css" />
+
+
+
+<link rel="stylesheet" type="text/css" href="__CSS__robot/style.css" />
+
+<!--[if IE 6]>
+
+<script type="text/javascript" src="js/DD_belatedPNG_0.0.8a-min.js" ></script>
+
+<script>DD_belatedPNG.fix('*');</script>
+
+<![endif]-->
+
+<title>栏目管理</title>
+
+</head>
+
+<body>
+
+
+
+<div id="list_wrap" class="page-container">
+	
+	<div class="mt-20">
+
+		<table class="table table-border table-bordered table-hover table-bg table-sort">
+
+			<thead>
+
+				<tr class="text-c">
+
+					<th width="25">id</th>
+
+					<th width="80">角色</th>
+
+					<th>昵称</th>
+
+					<th width="100">操作</th>
+
+				</tr>
+
+			</thead>
+
+			<tbody>
+			{volist name="robot" id="vo"}
+				<tr class="text-c">
+
+					<td>{$vo.robot_id}</td>
+
+					<td>{$vo.level_name}</td>
+
+					<td >{$vo.nick_name}</td>
+
+					<td class="f-14">
+
+						<a title="删除" href="javascript:;" onclick="delete_robot('{$vo.robot_id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+
+				</tr>
+			{/volist}
+
+			</tbody>
+
+		</table>
+
+	</div>
+	<button class="btn btn-success radius" onclick="cut_add()" style="margin-top:16px;"><i class="icon-ok"></i> 添加角色</button>
+</div>
+
+
+
+<!--添加-->
+<div style="display:none;" id="add_wrap">
+
+	<form action="" method="post" class="form form-horizontal" id="form-admin-role-add">
+
+		<div style="margin-bottom:50px;" class="row cl">
+
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>角色名称：</label>
+
+			<div style="width:200px;" class="formControls col-xs-8 col-sm-9">
+
+				<input type="text" class="input-text" value="" placeholder="" id="add_name" name="add_name">
+
+			</div>
+
+		</div>
+
+		<div style="margin-bottom:50px;">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>角色：</label>
+			<select style="width:100px;margin-left:10px;" name="" id="add_role">
+				{volist name="role" id="vo"}
+					<option value="{$vo.level}">{$vo.level_name}</option>
+				{/volist}	
+			</select>
+		</div>
+
+		<div class="row cl">
+
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+
+				<button type="submit" class="btn btn-success radius" onclick="add()" id="admin-role-save" name="admin-role-save"><i class="icon-ok"></i> 确定</button>
+				<button class="btn btn-success radius" onclick="cut_list()"><i class="icon-ok"></i> 返回</button>
+			</div>
+
+		</div>
+
+	</form>
+
+</div>
+
+
+
+<script type="text/javascript" src="__JS__jquery.js"></script>
+<script type="text/javascript">
+	function cut_add(){
+		$('#list_wrap').css('display','none');
+		$('#add_wrap').css('display','block');
+	}
+	
+	function cut_list(){
+		$('#list_wrap').css('display','block');
+		$('#add_wrap').css('display','none');
+	}
+	
+	function add(){
+		var name = $('#add_name').val();
+		var level= $('#add_role').val();
+		$.post('{:url("Index/add_robot")}',{name:name,level:level},function(data){
+			data =  JSON.parse(data);
+			if(data.type==1){
+				 parent.location.reload();
+			}else{
+				alert(data.msg);
+			}
+		});
+	}
+	
+	function delete_robot(id){
+		$.post('{:url("Index/del_robot")}',{id:id},function(data){
+			data =  JSON.parse(data);
+			if(data.type==1){
+				 location.reload();
+			}else{
+				alert(data.msg);
+			}
+		});
+	}
+</script>
+
+</body>
+
+</html>

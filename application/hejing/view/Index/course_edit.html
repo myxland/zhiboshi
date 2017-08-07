@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__JS__admin/html5.js"></script>
+<script type="text/javascript" src="__JS__admin/respond.min.js"></script>
+<script type="text/javascript" src="__JS__admin/PIE_IE678.js"></script>
+<![endif]-->
+<link type="text/css" rel="stylesheet" href="__CSS__admin/H-ui.css"/>
+<link type="text/css" rel="stylesheet" href="__CSS__admin/H-ui.admin.css"/>
+<link type="text/css" rel="stylesheet" href="__CSS__font/font-awesome.min.css"/>
+<!--[if IE 7]>
+<link href="__CSS__font/font-awesome-ie7.min.css" rel="stylesheet" type="text/css" />
+<![endif]-->
+<title>我的桌面</title>
+</head>
+<style type="text/css">
+	input{border:none;}
+</style>
+<body>
+
+<div class="pd-20" style="padding-top:20px;">
+
+	<table class="table table-border table-bordered table-bg">
+    <thead>
+      <tr>
+        <th colspan="7" scope="col">课程表</th>
+      </tr>
+      <tr class="text-c">
+		<th>时间</th>
+        <th>星期一</th>
+        <th>星期二</th>
+        <th>星期三</th>
+        <th>星期四</th>
+        <th>星期五</th>
+      </tr>
+    </thead>
+    <tbody>
+	{volist name="course" id="vo"}
+      <tr class="text-c tr{$vo.id}">
+        <td><input type="text" value="{$vo.time}" width="100px" height="100%"/></td>
+		<td><input type="text" value="{$vo.day1}" width="100px" height="100%"/></td>
+        <td><input type="text" value="{$vo.day2}" width="100px" height="100%"/></td>
+        <td><input type="text" value="{$vo.day3}" width="100px" height="100%"/></td>
+        <td><input type="text" value="{$vo.day4}" width="100px" height="100%"/></td>
+        <td><input type="text" value="{$vo.day5}" width="100px" height="100%"/></td>
+      </tr>
+    {/volist} 
+    </tbody>
+  </table>
+  <a style="margin-top:10px;margin-left:0px;background:green;" class="btn btn-danger radius ml-10" href="javascript:cour_edit()">确定</a>
+ 
+</div>
+
+<script type="text/javascript" src="__JS__admin/jquery.min.js"></script>
+<script type="text/javascript" src="__JS__/layer/layer.js"></script>
+<script type="text/javascript">
+	function edit(){
+	
+		location.href="{:url('Index/edit')}";
+		
+	}
+	
+	$('input').focus(function(){
+	
+		var len = $(this).val().length;
+		$(this).moveStart('character',len);
+		
+	});
+	
+</script>
+</body>
+</html>

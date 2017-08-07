@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__JS__admin/html5.js"></script>
+<script type="text/javascript" src="__JS__admin/respond.min.js"></script>
+<script type="text/javascript" src="__JS__admin/PIE_IE678.js"></script>
+<![endif]-->
+<link type="text/css" rel="stylesheet" href="__CSS__admin/H-ui.css"/>
+<link type="text/css" rel="stylesheet" href="__CSS__admin/H-ui.admin.css"/>
+<link type="text/css" rel="stylesheet" href="__CSS__font/font-awesome.min.css"/>
+<!--[if IE 7]>
+<link href="__CSS__font/font-awesome-ie7.min.css" rel="stylesheet" type="text/css" />
+<![endif]-->
+<title>讲师列表</title>
+<style type="text/css">
+	#pageNav li{float:left;}
+</style>
+</head>
+<body>
+<div class="pd-20">
+   <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"> <a class="btn btn-primary radius" onClick="layerOpen()" href="javascript:;"><i class="icon-plus"></i> 添加讲师</a></span> <span class="r">共有数据：<strong>{$jiangshi|count}</strong> 条</span> </div>	
+  <table class="table table-border table-bordered table-bg table-hover table-sort">
+    <thead>
+      <tr class="text-c">
+        <th width="80">姓名</th>
+		<th width="80">标签</th>
+        <th width="80">图片</th>
+        <th width="80">style</th>
+        <th width="120">投资历史</th>
+        <th width="120">擅长指标</th>
+		<th>交易风格</th>
+        <th width="70">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+	{volist name="jiangshi" id="vo"}
+      <tr class="text-c">
+        <td>{$vo.name}</td>
+        <td class="text-l">{$vo.flag}</td>
+        <td><img src="{$vo.icon}" alt="" height="60px"/></td>
+        <td>{$vo.style}</td>
+        <td>{$vo.history}</td>
+		<td>{$vo.index}</td>
+		<td>{$vo.recommend}</td>
+		<td class="f-14 article-manage">
+			<a style="text-decoration:none" class="ml-5"  href="javascript:edit_jiangshi('{$vo.id}');" title="编辑"><i class="icon-edit"></i></a> 
+			<a style="text-decoration:none" class="ml-5"  href="javascript:del_jiangshi('{$vo.id}');" title="删除"><i class="icon-trash"></i></a>
+		</td>
+      </tr>
+	{/volist} 
+    </tbody>
+  </table>
+  <div id="pageNav" class="pageNav"></div>
+</div>
+<script type="text/javascript" src="__JS__admin/jquery.min.js"></script>
+<script type="text/javascript" src="__JS__layer/layer.js"></script> 
+<script type="text/javascript" src="__JS__admin/pagenav.cn.js"></script> 
+<script type="text/javascript" src="__JS__admin/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="__JS__admin/H-ui.js"></script> 
+<script type="text/javascript" src="__JS__admin/H-ui.admin.js"></script> 
+
+<script type="text/javascript">
+	function layerOpen(){
+	
+		layer.open({
+			//skin: 'layui-layer-nobg',
+			type: 2,
+			title: false,
+			area: ['800px', '600px'],
+			shade: ['0.1','#fff'],
+			closeBtn: 1,
+			shadeClose: true,
+			content: '{:url("Jiangshi/add_jiangshi")}'
+			
+		});
+	
+	}
+	
+	
+	function edit_jiangshi(id){
+	
+		layer.open({
+			//skin: 'layui-layer-nobg',
+			type: 2,
+			title: false,
+			area: ['800px', '600px'],
+			shade: ['0.1','#fff'],
+			closeBtn: 1,
+			shadeClose: true,
+			content: '{:url("Jiangshi/edit_jiangshi")}?id='+id
+			
+		});
+	
+	}
+	
+	
+	function del_jiangshi(id){
+	
+		if(confirm('删除后不可恢复')){
+		
+			$.post('{:url("Jiangshi/del_jiangshi")}',{id:id},function(data){
+				data = JSON.parse(data);
+				if(data.type==1){
+					location.reload();
+				}else{
+					layer.msg(data.msg);
+				}
+			
+			});
+		
+		}
+	
+	}
+	
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+#face dd {
+    float: left;
+    width: 27px;
+    height: 27px;
+    overflow: hidden;
+    cursor: pointer;
+    padding-left: 3px;
+    padding-top: 3px;
+    border-left: 1px solid #ebebeb;
+    border-bottom: 1px solid #ebebeb;
+}
+#face ul, #caitiao ul {
+    height: 22px;
+    line-height: 22px;
+    background: #e4e4e3 url(../images/g_bg.jpg) left top repeat-x;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+#face ul li, #caitiao ul li {
+    float: left;
+    padding: 0 5px;
+    border-left: #e4e4e3 1px solid;
+    border-right: #e4e4e3 1px solid;
+}
+#face {
+    background: #fff;
+    color: #000;
+    border-radius: 3px;
+    padding: 8px;
+    width: 280px;
+    height: 208px;
+    position: fixed;
+    z-index: 99999999;
+}
+#f_df{display:block;}
+#f_lt{display:none;}
+#f_lxh{display:none;}
+#face ul li:hover, #face ul .f_cur, #caitiao ul li:hover, #caitiao ul .f_cur {
+    background: #fff;
+    border-color: #d9d9d8;
+    cursor: pointer;
+}

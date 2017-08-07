@@ -1,0 +1,177 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__JS__admin/html5.js"></script>
+<script type="text/javascript" src="__JS__admin/respond.min.js"></script>
+<script type="text/javascript" src="__JS__admin/PIE_IE678.js"></script>
+<![endif]-->
+<link type="text/css" rel="stylesheet" href="__CSS__admin/H-ui.css"/>
+<link type="text/css" rel="stylesheet" href="__CSS__admin/H-ui.admin.css"/>
+<link type="text/css" rel="stylesheet" href="__CSS__font/font-awesome.min.css"/>
+<!--[if IE 7]>
+<link href="__CSS__font/font-awesome-ie7.min.css" rel="stylesheet" type="text/css" />
+<![endif]-->
+<title>资讯列表</title>
+<style type="text/css">
+	#pageNav li{float:left;}
+</style>
+</head>
+<body>
+<div class="pd-20">
+ 
+  <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onClick="batchForecast()" class="btn btn-danger radius"><i class="icon-trash"></i> 批量删除</a> <a class="btn btn-primary radius" onClick="layerOpen()" href="javascript:;"><i class="icon-plus"></i> 添加课件</a></span> <span class="r">共有数据：<strong>{$forecast|count}</strong> 条</span> </div>
+  <table class="table table-border table-bordered table-bg table-hover table-sort">
+    <thead>
+      <tr class="text-c">
+        <th width="25"><input type="checkbox" id="checkParent" name="" value=""></th>
+        <th width="80">标题</th>
+        <th>内容</th>
+        <th width="80">发布人</th>
+        <th width="80">文件</th>
+        <th width="120">更新时间</th>
+        <th width="70">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+	{volist name="forecast" id="vo"}
+      <tr class="text-c">
+        <td><input type="checkbox" value="{$vo.id}" class="checka"></td>
+        <td>{$vo.title}</td>
+        <td class="text-l">{$vo.content}</td>
+        <td>{$vo.user}</td>
+        <td>{$vo.download}</td>
+        <td>{$vo.time|date="Y-m-d H:i",###}</td>
+        <td class="f-14 article-manage">
+			<a style="text-decoration:none" class="ml-5"  href="javascript:edit_forecast('{$vo.id}');" title="编辑"><i class="icon-edit"></i></a> 
+			<a style="text-decoration:none" class="ml-5"  href="javascript:del_forecast('{$vo.id}');" title="删除"><i class="icon-trash"></i></a>
+		</td>
+      </tr>
+	{/volist}  
+    </tbody>
+  </table>
+  <div id="pageNav" class="pageNav">{$forecast->render()}</div>
+</div>
+<script type="text/javascript" src="__JS__admin/jquery.min.js"></script>
+<script type="text/javascript" src="__JS__layer/layer.js"></script> 
+<script type="text/javascript" src="__JS__admin/pagenav.cn.js"></script> 
+<script type="text/javascript" src="__JS__admin/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="__JS__admin/H-ui.js"></script> 
+<script type="text/javascript" src="__JS__admin/H-ui.admin.js"></script> 
+
+<script type="text/javascript">
+	function layerOpen(){
+	
+		layer.open({
+			//skin: 'layui-layer-nobg',
+			type: 2,
+			title: false,
+			area: ['800px', '500px'],
+			shade: ['0.1','#fff'],
+			closeBtn: 1,
+			shadeClose: true,
+			content: '{:url("Forecast/add_forecast")}'
+			
+		});
+	
+	}
+	
+	
+	function edit_forecast(id){
+	
+		layer.open({
+			//skin: 'layui-layer-nobg',
+			type: 2,
+			title: false,
+			area: ['800px', '500px'],
+			shade: ['0.1','#fff'],
+			closeBtn: 1,
+			shadeClose: true,
+			content: '{:url("Forecast/edit_forecast")}?id='+id
+			
+		});
+	
+	
+	}
+	
+	
+	
+	function del_forecast(id){
+	
+		if(confirm('删除后不可恢复')){
+		
+			$.post('{:url("Forecast/del_forecast")}',{id:id},function(data){
+				data = JSON.parse(data);
+				if(data.type==1){
+					location.reload();
+				}else{
+					layer.msg(data.msg);
+				}
+			
+			});
+		
+		}
+	
+	}
+	
+	
+	$('#checkParent').click(function(){
+	
+		var flag = $(this).prop('checked');
+		
+		if(flag){
+			$('.checka').each(function(){
+			
+				$(this).prop('checked',true);
+			
+			});
+		}
+	
+	});
+	
+	
+	function batchForecast(){
+		
+		var arr = [];
+		
+		$('.checka').each(function(){
+		
+			if($(this).prop('checked') == true){
+			
+				arr.push($(this).val());
+			
+			}
+			
+		});
+		
+		if(arr.length == 0){
+			layer.msg('你没有选中任何数据');
+			return false;
+		}
+		
+		if(confirm('删除后不可恢复')){
+			
+			arr = JSON.stringify(arr);
+			
+			$.post('{:url("Forecast/batchForecast")}',{id:arr},function(data){
+			
+				data = JSON.parse(data);
+				if(data.type==1){
+					location.reload();
+				}else{
+					layer.msg(data.msg);
+				}
+				
+			});
+			
+		}
+		
+	}
+</script>
+</body>
+</html>

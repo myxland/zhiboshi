@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__JS__admin/html5.js"></script>
+<script type="text/javascript" src="__JS__admin/respond.min.js"></script>
+<script type="text/javascript" src="__JS__admin/PIE_IE678.js"></script>
+<![endif]-->
+<link type="text/css" rel="stylesheet" href="__CSS__admin/H-ui.css"/>
+<link type="text/css" rel="stylesheet" href="__CSS__admin/H-ui.admin.css"/>
+<link type="text/css" rel="stylesheet" href="__CSS__font/font-awesome.min.css"/>
+<!--[if IE 7]>
+<link href="__CSS__font/font-awesome-ie7.min.css" rel="stylesheet" type="text/css" />
+<![endif]-->
+<title>我的桌面</title>
+<style type="text/css">
+	input{border:none;}
+</style>
+</head>
+<body>
+
+<div class="pd-20" style="padding-top:20px;">
+
+	<table class="table table-border table-bordered table-bg">
+    <thead>
+      <tr>
+        <th colspan="7" scope="col">课程表</th>
+      </tr>
+      <tr class="text-c">
+		<th>时间</th>
+        <th>星期一</th>
+        <th>星期二</th>
+        <th>星期三</th>
+        <th>星期四</th>
+        <th>星期五</th>
+      </tr>
+    </thead>
+    <tbody>
+	{volist name="course" id="vo"}
+      <tr class="text-c tr{$vo.id} text-cc">
+        <td><input type="text" value="{$vo.time}" width="100px" height="100%"/></td>
+		<td><input type="text" value="{$vo.day1}" width="100px" height="100%"/></td>
+        <td><input type="text" value="{$vo.day2}" width="100px" height="100%"/></td>
+        <td><input type="text" value="{$vo.day3}" width="100px" height="100%"/></td>
+        <td><input type="text" value="{$vo.day4}" width="100px" height="100%"/></td>
+        <td><input type="text" value="{$vo.day5}" width="100px" height="100%"/></td>
+      </tr>
+    {/volist} 
+    </tbody>
+  </table>
+  <a style="margin-top:10px;margin-left:0px;" class="btn btn-danger radius ml-10" href="javascript:course_edit()">修改</a>
+  <table class="table table-border table-bordered table-bg mt-20">
+    <thead>
+      <tr>
+        <th colspan="2" scope="col">直播室信息</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th width="200">直播室名称</th>
+        <td><span id="lbServerName">{$room.room_name}</span></td>
+      </tr>
+      <tr>
+        <td>房间标题</td>
+        <td>{$room.room_title}</td>
+      </tr>
+      <tr>
+        <td>关键字</td>
+        <td>{$room.room_keyword}</td>
+      </tr>
+      <tr>
+        <td>房间公告</td>
+        <td>{$room.room_notice}</td>
+      </tr>
+       <tr>
+        <td>房间logo</td>
+        <td><img src="{$room.room_logo}" alt="" /></td>
+      </tr>
+    </tbody>
+  </table>
+  <a style="margin-top:10px;margin-left:0px;" class="btn btn-danger radius ml-10" href="javascript:edit()">修改</a>
+</div>
+
+<script type="text/javascript" src="__JS__admin/jquery.min.js"></script>
+<script type="text/javascript" src="__JS__/layer/layer.js"></script>
+<script type="text/javascript">
+	function edit(){
+	
+		location.href="{:url('Index/edit')}";
+		
+	}
+	
+	
+	function course_edit(){
+	
+		var arr = [];
+		
+		var arr_cp = [];
+	
+		$('.text-cc').each(function(){
+		
+			
+			$(this).find('td').each(function(){
+			
+				arr_cp.push($(this).find('input').val());
+			
+			});
+			
+			
+			arr.push(arr_cp);
+			arr_cp = [];
+			
+		});
+		
+		arr = JSON.stringify(arr);
+		
+		$.post('{:url("Index/edit_course")}',{arr:arr},function(data){
+		
+			if(data==1){
+				location.reload();
+			}else{
+				layer.msg('修改失败');
+			}
+		
+		});
+		
+	}
+</script>
+</body>
+</html>

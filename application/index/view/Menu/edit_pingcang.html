@@ -1,0 +1,147 @@
+<!--_meta 作为公共模版分离出去-->
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+
+<meta charset="utf-8">
+
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+<!--[if lt IE 9]>
+
+<script type="text/javascript" src="js/html5shiv.js"></script>
+
+<script type="text/javascript" src="js/respond.min.js"></script>
+
+<![endif]-->
+
+<link rel="stylesheet" type="text/css" href="__CSS__add/H-ui.min.css" />
+
+<link rel="stylesheet" type="text/css" href="__CSS__add/H-ui.admin.css" />
+
+<link rel="stylesheet" type="text/css" href="__CSS__add/iconfont.css" />
+
+<link rel="stylesheet" type="text/css" href="__CSS__add/skin.css" id="skin" />
+
+<link rel="stylesheet" type="text/css" href="__CSS__add/style.css" />
+
+<!--[if IE 6]>
+
+<script type="text/javascript" src="js/DD_belatedPNG_0.0.8a-min.js" ></script>
+
+<script>DD_belatedPNG.fix('*');</script>
+
+<![endif]-->
+
+<!--/meta 作为公共模版分离出去-->
+
+
+
+<title></title>
+
+
+</head>
+
+<body>
+
+<article class="page-container">
+
+	<form class="form form-horizontal" id="form-article-add" onsubmit="return check_form()">
+		
+		
+		<div class="row cl">
+
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>平仓价：</label>
+
+			<div class="formControls col-xs-8 col-sm-9">
+
+				<input type="text" class="input-text" value="" placeholder="" id="pingcang" name="pingcang">
+
+			</div>
+
+		</div>
+	
+		
+		<input type="hidden"  value="{$id}" id="eid"/>
+		<div class="row cl">
+
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+
+				<button onClick="" class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+
+				<button onclick="history.go(-1)" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+			</div>
+
+		</div>
+
+	</form>
+
+</article>
+<script type="text/javascript">
+	//定义路径
+	var isLogin = '{:url("index/isLogin")}';
+	var imgLink = '__IMG__';
+</script>
+<script type="text/javascript" src="__JS__jquery.js"></script>
+<script type="text/javascript" src="__JS__layer/layer.js"></script>
+<script type="text/javascript" src="__JS__websocket.js"></script>
+<script type="text/javascript">
+	function check_form(){
+		
+		var arr = 
+			{
+			jiancang_id:$('#eid').val(),
+			pingcang:$('input[name="pingcang"]').val()
+			}
+		;
+		
+		<!-- arr['jianyi'] = $('select[name="type"]').val(); -->
+		<!-- arr['cangwei']= $('input[name="cangwei"]').val(); -->
+		<!-- arr['goods_id']  = $('#goods_id').val(); -->
+		<!-- arr['cangjia']  = $('input[name="kaicang"]').val(); -->
+		<!-- arr['sunjia']  = $('input[name="zhisun"]').val(); -->
+		<!-- arr['yingjia']  = $('input[name="zhiying"]').val(); -->
+		<!-- arr['type']  = $('select[name="maidan"]').val(); -->
+		
+		arr = JSON.stringify(arr);
+		var goods = '{$goods_name}';
+		$.post('{:url("Menu/edit_pingcang")}',{arr:arr},function(data){
+			data = JSON.parse(data);
+			if(data.type!=1){
+				layer.msg(data.msg);
+			}else{
+			
+				var info = '平仓：'+goods+'  <i href="javascript:void(0)" onclick="pingcang()" style="color:green;">点击查看</i>';
+				info = escape(info);
+				var msg = '{"chatname":"系统消息","chatmessage":"'+info+'"}';
+				
+				$.post('{:url("Menu/jiancang_msg")}',{msg:msg},function(data){
+					
+					if(data==1){
+						
+						ws.send('{"msg":"jiancang","name":"系统消息","content":"'+info+'","music":"pingcang.mp3"}');
+						parent.location.reload();
+						
+					}
+				
+				});
+				
+			}
+		});
+		return false;
+		
+	}
+</script>
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+{dede:global.cfg_templets_skin/}
+
+
+{dede:type typeid="2"}
+
+[field:typename/]
+[field:typeurl/]
+
+{/dede:type}
+
+
+currentstyle="<li class='on'>~typename~</li>"
+
+
+
+
+{dede:arclist typeid="2" row="1" orderby='pubdate' infolen="50" title="30"}
+
+[field:litpic/]
+
+[field:arcurl/]
+
+[field:title/]
+
+[field:infos/]
+
+{/dede:arclist}
+
+
+获取循环次数  	 [field:global.autoindex/]
+获取文章发布时间 [field:pubdate function="GetDateTimeMK(@me)"/]
+		  [field:pubdate function="MyDate('Y-m-d',@me)"/]
+
+文章
+{dede:field.title/}
+{dede:field.pubdate function="MyDate('Y-m-d H:i',@me)"/}
+{dede:field.body/}
+{dede:field.source/}
+
+循环顶级栏目的子栏目 
+学习地址:http://blog.csdn.net/forest_fire/article/details/50943781
+{dede:channelartlist typeid='35'}
+{dede:field name='typename'/}
+{dede:field name='typeurl'/}
+{dede:global.itemindex/}
+循环次数判断
+{dede:global name='itemindex' runphp='yes'}if(@me%2==0){@me='class="contListMargin"';els{@me='';{/dede:global} 
+
+
+标题{dede:global.cfg_webname/}
+描述{dede:global.cfg_description/}
+关键词{dede:global.cfg_keywords/}
+当前位置{dede:field name='position'/}
